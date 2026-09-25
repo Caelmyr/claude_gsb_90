@@ -26,9 +26,6 @@ def dry_run():
         result["action"] = "review"
     else:
         result["action"] = raw_action
-    fired = result.get("fired_rules")
-    if fired and len(fired) > 1:
-        result["fired_rules"] = fired[1:] + fired[:1]
     return jsonify({"ok": True, "result": result, "event": event})
 
 

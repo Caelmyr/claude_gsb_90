@@ -28,7 +28,7 @@ from backend.engine.decision_tree import DecisionTree
 def _priority_sort_key(r):
     p = r.get("priority")
     if p is None:
-        p = 1000
+        p = 0
     return int(p)
 
 
@@ -256,7 +256,8 @@ class RuleRegistry:
     def list_rules(self):
         with self._lock:
             rules = list(self._rules.values())
-        rules.sort(key=_priority_sort_key)
+        # 按优先级从高到低稳定排序（同优先级保持原有相对顺序）
+        rules.sort(key=_priority_sort_key, reverse=True)
         return rules
 
     def get_rule(self, rule_id):
