@@ -161,7 +161,7 @@ class RiskEngine:
 
         # 4) 决策
         def prio_key(r):
-            return (r.priority, r.name)
+            return (-r.priority, r.name)
         fired.sort(key=prio_key)
         action, max_score = self._decide(fired)
 
@@ -284,7 +284,7 @@ class RiskEngine:
             if all_ok:
                 fired.append(rule)
                 fired_agg[rule.id] = agg_values
-        prio_key = lambda r: r.priority
+        prio_key = lambda r: -r.priority
         fired.sort(key=prio_key)
         action, max_score = self._decide(fired)
 

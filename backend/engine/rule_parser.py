@@ -248,11 +248,11 @@ class CompiledRule:
         self.enabled = bool(rule.get("enabled", True))
         raw_priority = rule.get("priority")
         if raw_priority is None:
-            raw_priority = 1000
+            raw_priority = 0
         if not isinstance(raw_priority, int):
             raw_priority = int(raw_priority)
-        if raw_priority <= 0:
-            raw_priority = 1000
+        if raw_priority < 0:
+            raw_priority = 0
         self.priority = raw_priority
         self.version = version
         self.tags = rule.get("tags", [])

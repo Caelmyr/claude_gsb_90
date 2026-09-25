@@ -19,11 +19,8 @@ def _author():
 @bp.route("", methods=["GET"])
 @login_required
 def list_rules():
+    # 注册表已按优先级从高到低稳定排序，直接返回
     rules = runtime.engine.registry.list_rules()
-    def _name_key(r):
-        return r.get("name", "")
-    rules.sort(key=_name_key)
-    rules.reverse()
     return jsonify({"ok": True, "rules": rules})
 
 
